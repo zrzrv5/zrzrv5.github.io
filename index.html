@@ -101,62 +101,6 @@
 <p>官方PDF文档<a href="http://cn.mathworks.com/help/pdf_doc/matlab/matlab_oop.pdf">下载</a></p>
 </blockquote>
 
-<hr/>
-
-<ul>
-<li>
-<a href="#toc_0">概览</a>
-<ul>
-<li>
-<a href="#toc_1">为什么要使用面向对象?</a>
-</li>
-<li>
-<a href="#toc_2">使用句柄(handles)</a>
-</li>
-<li>
-<a href="#toc_3">Class</a>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<hr/>
-
-<h2 id="toc_0">概览</h2>
-
-<h3 id="toc_1">为什么要使用面向对象?</h3>
-
-<ul>
-<li><p>减少错误</p>
-
-<p>当任务越来越复杂时,那些函数也会变得越来越复杂,难以管理.尽管当函数变复杂时,大可以把它又拆分成许多小的简单函数,然后在它们之间传递数据.然而,当函数越来越多时,数据的设计与管理也会变得更加困难,也越有可能出bug</p></li>
-<li><p>对象有着<code>struct</code>和<code>array</code>没有的特性<br/>
-举个🌰:</p>
-
-<ul>
-<li>只在需要时才去计算属性的值</li>
-<li>当任何属性被请求或修改时发送通知</li>
-<li>能限制对属性和方法的访问</li>
-</ul></li>
-<li><p>减少冗余的代码,简化</p></li>
-<li><p>重载函数和操作符<br/>
-在定义了一个类时,可以重载MATLAB中已有的函数以配合对象使用</p></li>
-</ul>
-
-<h3 id="toc_2">使用句柄(handles)</h3>
-
-<ol>
-<li><p><strong>什么是handle</strong></p>
-
-<p>一个MATLAB对象就是一个handle,当变量hold住一个handle时,实际上是hold住了对象的一个引用(reference).Handle 可以让多个变量引用同一个对象.</p></li>
-</ol>
-
-<p>...</p>
-
-<h3 id="toc_3">Class</h3>
-
-<p><a href=""></a>    </p>
 
                         
                       </div>
@@ -164,7 +108,7 @@
                 </a>
                 <div class="read-more clearfix">
                   <div class="more-left left">
-                  
+                   <a href="14583177357023.html">Read more</a>&nbsp;&nbsp; 
                     <span class="date">2016/3/19</span>
                     <span>posted in&nbsp;</span> 
           				  
@@ -173,6 +117,8 @@
                   </div>
                   <div class="more-right right">
                   <span class="comments">
+                      
+                        <a href="14583177357023.html#disqus_thread">comments</a>
                       
 
                        
@@ -191,76 +137,6 @@
                         
                         	<hr/>
 
-<ul>
-<li>
-<a href="#toc_0">基础</a>
-</li>
-</ul>
-
-
-<hr/>
-
-<h2 id="toc_0">基础</h2>
-
-<ul>
-<li>定义类</li>
-</ul>
-
-<pre><code class="language-matlab">classdef BasicClass
-   properties
-    Value
-    end 
-    methods
-        function r = roundOff(obj)
-           r = round([obj.Value],2);
-       end
-       function r = multiplyBy(obj,n)
-            r = [obj.Value] * n;
-        end 
-    end
-end
-</code></pre>
-
-<ul>
-<li>创建实例</li>
-</ul>
-
-<pre><code>a = BasicClass
-</code></pre>
-
-<ul>
-<li><p>访问属性</p>
-
-<ul>
-<li><p>赋值 <code>a.Value = pi/3;</code></p></li>
-<li><p>获取 <code>a.Value</code></p></li>
-</ul></li>
-</ul>
-
-<!--- 初始化函数
-    
-```matlab
-classdef Student
-    %UNTITLED2 Summary of this class goes here
-    %   Detailed explanation goes here
-    
-    properties 
-        name
-        number
-    end
-    
-    methods
-        function init = Student(name,number)
-            init.name = name;
-            init.number = number;
-        end
-    end
-    
-end
-
-
-```
--->
 
                         
                       </div>
@@ -268,7 +144,7 @@ end
                 </a>
                 <div class="read-more clearfix">
                   <div class="more-left left">
-                  
+                   <a href="14583089838055.html">Read more</a>&nbsp;&nbsp; 
                     <span class="date">2016/3/18</span>
                     <span>posted in&nbsp;</span> 
           				  
@@ -277,6 +153,8 @@ end
                   </div>
                   <div class="more-right right">
                   <span class="comments">
+                      
+                        <a href="14583089838055.html#disqus_thread">comments</a>
                       
 
                        
@@ -304,105 +182,6 @@ iPhone</p>
 
 <p><a href="https://developer.apple.com/healthkit/">HealthKit</a>是iOS 8中加入的新东西(iOS9.3中加入了<a href="https://developer.apple.com/library/prerelease/ios/documentation/Miscellaneous/Reference/HealthKitUI_Framework/index.html#//apple_ref/doc/uid/TP40016713">HealthKitUI 框架</a>)，通过<a href="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/index.html#//apple_ref/doc/uid/TP40014707">HealthKit框架</a>就可以方便地获取和添加运动，营养，身理数据</p>
 
-<h2 id="toc_2">流程</h2>
-
-<h4 id="toc_3">往<code>HealthKit</code>中添加数据</h4>
-
-<p><span id = "jump"></span><br/>
-<img src="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/Art/quantity_sample_2x.png" alt="往`HealthKit`中添加数据"/></p>
-
-<h2 id="toc_4">Let&#39;s Code</h2>
-
-<ul>
-<li><p>在Capabilities中打开Healthkit</p></li>
-<li><p>创建一个<code>HealthManger</code>类</p>
-
-<ul>
-<li><p>导入HealthKit并且创建一个<code>HKHealthStore</code>实例</p>
-
-<pre><code class="language-swift">import Foundation
-import HealthKit
-class HealthManger {
-let healthKitStore :HKHealthStore = HKHealthStore()
-}
-</code></pre></li>
-<li><p>获得授权<br/>
- 1 设置需要读取的类型,这里我们实际上并不需要读什么,完全可以设为<code>nil</code></p>
-
-<pre><code class="language-swift">let healthKitTypesToRead = Set(arrayLiteral: HKObjectType.workoutType())
-</code></pre>
-
-<p>2  设置需要写入的类型    ,我们要写入步数需要的是<code>HKQuantityTypeIdentifierStepCount</code>,</p>
-
-<pre><code class="language-swift">let healthKitTypesToWrite = Set(arrayLiteral:HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!,HKQuantityType.workoutType())
-
-</code></pre>
-
-<p>3 检测HealthKit是否可用(例如iPad,企业或学校配发的iPhone就不可用)</p>
-
-<pre><code class="language-swift">if !HKHealthStore.isHealthDataAvailable()
-{
-    let error = NSError(domain: &quot;xyz.limlabs.healthKitDEMO&quot;, code: 2, userInfo: [NSLocalizedDescriptionKey:&quot;HealthKit is not available in this Device&quot;])
-    if( completion != nil )
-    {
-        completion(success:false, error:error)
-    }
-    return;
-}
-</code></pre>
-
-<p>4 请求授权</p>
-
-<blockquote>
-<p>还可以通过设置info.plist的<code>NSHealthShareUsageDescription</code> 和<code>NSHealthUpdateUsageDescription</code>来显示自定义的允许消息</p>
-</blockquote>
-
-<pre><code class="language-swift">healthKitStore.requestAuthorizationToShareTypes(healthKitTypesToWrite, readTypes: healthKitTypesToRead) { (success, error) -&gt; Void in
-
-    if( completion != nil )
-    {
-        completion(success:success,error:error)
-    }
-}
-</code></pre></li>
-<li><p>写入数据<br/>
-像之前在<a href="#jump">流程里</a>所描述的那样,要把步数加进去只需设置步数所对应的<code>HKObjectType</code>和<code>HKQuantity</code>即可</p>
-
-<pre><code class="language-swift">func addStep(stepCount:Double){
-   let startDate =  NSDate()
-   let endDate = NSDate()
-   let type = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
- let quantity = HKQuantity(unit: HKUnit.countUnit(), doubleValue: stepCount)
-  let sample = HKQuantitySample(type: type!, quantity: quantity, startDate: startDate, endDate: endDate)
-healthKitStore.saveObject(sample, withCompletion: {
-    (success, error) -&gt; Void in
-
-    if( error != nil ) {
-        print(&quot;Error saving step count: \(error!.localizedDescription)&quot;)
-    } else {
-        print(&quot;step count saved successfully!&quot;)
-    }
-
-}
-</code></pre></li>
-</ul></li>
-</ul>
-
-<ul>
-<li>  之后在你需要的地方创建<code>HealthManger</code>的实例并调用授权,调用完毕后就可以使用<code>addStep(步数)</code>往HealthKit里添加步数了</li>
-</ul>
-
-<h2 id="toc_5">开始秒杀朋友圈/QQ</h2>
-
-<p><img src="media/14576725834921/IMG_4684.png" alt="IMG_4684"/><br/>
-<strong>注意：</strong><em>微信中不知道为什么好像只能添加到这个数,并且在测试中发现手机上的健康App的数据会短暂性消失,重启后才恢复正常,微信步数恢复正常而QQ健康的步数保持修改后步数</em><br/>
-![IMG_4909](media/14576725834921/IMG_4909.png</p>
-
-<hr/>
-
-<p>参考:<br/>
-1. <a href="https://www.raywenderlich.com/86336/ios-8-healthkit-swift-getting-started">HealthKit Tutorial with Swift: Getting Started</a><br/><br/>
-2. <a href="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/index.html#//apple_ref/doc/uid/TP40014707">HealthKit Framework Reference</a>  </p>
 
                         
                       </div>
@@ -410,7 +189,7 @@ healthKitStore.saveObject(sample, withCompletion: {
                 </a>
                 <div class="read-more clearfix">
                   <div class="more-left left">
-                  
+                   <a href="14576725834921.html">Read more</a>&nbsp;&nbsp; 
                     <span class="date">2016/3/11</span>
                     <span>posted in&nbsp;</span> 
           				  
@@ -419,6 +198,8 @@ healthKitStore.saveObject(sample, withCompletion: {
                   </div>
                   <div class="more-right right">
                   <span class="comments">
+                      
+                        <a href="14576725834921.html#disqus_thread">comments</a>
                       
 
                        
@@ -450,6 +231,8 @@ healthKitStore.saveObject(sample, withCompletion: {
                   </div>
                   <div class="more-right right">
                   <span class="comments">
+                      
+                        <a href="14576719854493.html#disqus_thread">comments</a>
                       
 
                        
@@ -569,6 +352,27 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
       </div>
     </div>
 
+
+<script type="text/javascript">
+    var disqus_shortname = 'zrzrv5'; 
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<script type="text/javascript">
+var disqus_shortname = 'zrzrv5'; 
+
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
   
     
 

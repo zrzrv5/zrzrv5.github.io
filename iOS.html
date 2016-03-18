@@ -108,105 +108,6 @@ iPhone</p>
 
 <p><a href="https://developer.apple.com/healthkit/">HealthKit</a>是iOS 8中加入的新东西(iOS9.3中加入了<a href="https://developer.apple.com/library/prerelease/ios/documentation/Miscellaneous/Reference/HealthKitUI_Framework/index.html#//apple_ref/doc/uid/TP40016713">HealthKitUI 框架</a>)，通过<a href="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/index.html#//apple_ref/doc/uid/TP40014707">HealthKit框架</a>就可以方便地获取和添加运动，营养，身理数据</p>
 
-<h2 id="toc_2">流程</h2>
-
-<h4 id="toc_3">往<code>HealthKit</code>中添加数据</h4>
-
-<p><span id = "jump"></span><br/>
-<img src="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/Art/quantity_sample_2x.png" alt="往`HealthKit`中添加数据"/></p>
-
-<h2 id="toc_4">Let&#39;s Code</h2>
-
-<ul>
-<li><p>在Capabilities中打开Healthkit</p></li>
-<li><p>创建一个<code>HealthManger</code>类</p>
-
-<ul>
-<li><p>导入HealthKit并且创建一个<code>HKHealthStore</code>实例</p>
-
-<pre><code class="language-swift">import Foundation
-import HealthKit
-class HealthManger {
-let healthKitStore :HKHealthStore = HKHealthStore()
-}
-</code></pre></li>
-<li><p>获得授权<br/>
- 1 设置需要读取的类型,这里我们实际上并不需要读什么,完全可以设为<code>nil</code></p>
-
-<pre><code class="language-swift">let healthKitTypesToRead = Set(arrayLiteral: HKObjectType.workoutType())
-</code></pre>
-
-<p>2  设置需要写入的类型    ,我们要写入步数需要的是<code>HKQuantityTypeIdentifierStepCount</code>,</p>
-
-<pre><code class="language-swift">let healthKitTypesToWrite = Set(arrayLiteral:HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!,HKQuantityType.workoutType())
-
-</code></pre>
-
-<p>3 检测HealthKit是否可用(例如iPad,企业或学校配发的iPhone就不可用)</p>
-
-<pre><code class="language-swift">if !HKHealthStore.isHealthDataAvailable()
-{
-    let error = NSError(domain: &quot;xyz.limlabs.healthKitDEMO&quot;, code: 2, userInfo: [NSLocalizedDescriptionKey:&quot;HealthKit is not available in this Device&quot;])
-    if( completion != nil )
-    {
-        completion(success:false, error:error)
-    }
-    return;
-}
-</code></pre>
-
-<p>4 请求授权</p>
-
-<blockquote>
-<p>还可以通过设置info.plist的<code>NSHealthShareUsageDescription</code> 和<code>NSHealthUpdateUsageDescription</code>来显示自定义的允许消息</p>
-</blockquote>
-
-<pre><code class="language-swift">healthKitStore.requestAuthorizationToShareTypes(healthKitTypesToWrite, readTypes: healthKitTypesToRead) { (success, error) -&gt; Void in
-
-    if( completion != nil )
-    {
-        completion(success:success,error:error)
-    }
-}
-</code></pre></li>
-<li><p>写入数据<br/>
-像之前在<a href="#jump">流程里</a>所描述的那样,要把步数加进去只需设置步数所对应的<code>HKObjectType</code>和<code>HKQuantity</code>即可</p>
-
-<pre><code class="language-swift">func addStep(stepCount:Double){
-   let startDate =  NSDate()
-   let endDate = NSDate()
-   let type = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
- let quantity = HKQuantity(unit: HKUnit.countUnit(), doubleValue: stepCount)
-  let sample = HKQuantitySample(type: type!, quantity: quantity, startDate: startDate, endDate: endDate)
-healthKitStore.saveObject(sample, withCompletion: {
-    (success, error) -&gt; Void in
-
-    if( error != nil ) {
-        print(&quot;Error saving step count: \(error!.localizedDescription)&quot;)
-    } else {
-        print(&quot;step count saved successfully!&quot;)
-    }
-
-}
-</code></pre></li>
-</ul></li>
-</ul>
-
-<ul>
-<li>  之后在你需要的地方创建<code>HealthManger</code>的实例并调用授权,调用完毕后就可以使用<code>addStep(步数)</code>往HealthKit里添加步数了</li>
-</ul>
-
-<h2 id="toc_5">开始秒杀朋友圈/QQ</h2>
-
-<p><img src="media/14576725834921/IMG_4684.png" alt="IMG_4684"/><br/>
-<strong>注意：</strong><em>微信中不知道为什么好像只能添加到这个数,并且在测试中发现手机上的健康App的数据会短暂性消失,重启后才恢复正常,微信步数恢复正常而QQ健康的步数保持修改后步数</em><br/>
-![IMG_4909](media/14576725834921/IMG_4909.png</p>
-
-<hr/>
-
-<p>参考:<br/>
-1. <a href="https://www.raywenderlich.com/86336/ios-8-healthkit-swift-getting-started">HealthKit Tutorial with Swift: Getting Started</a><br/><br/>
-2. <a href="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/index.html#//apple_ref/doc/uid/TP40014707">HealthKit Framework Reference</a>  </p>
 
                         
                       </div>
@@ -214,7 +115,7 @@ healthKitStore.saveObject(sample, withCompletion: {
                 </a>
                 <div class="read-more clearfix">
                   <div class="more-left left">
-                  
+                   <a href="14576725834921.html">Read more</a>&nbsp;&nbsp; 
                     <span class="date">2016/3/11</span>
                     <span>posted in&nbsp;</span> 
           				  
@@ -223,6 +124,8 @@ healthKitStore.saveObject(sample, withCompletion: {
                   </div>
                   <div class="more-right right">
                   <span class="comments">
+                      
+                        <a href="14576725834921.html#disqus_thread">comments</a>
                       
 
                        
@@ -342,6 +245,27 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
       </div>
     </div>
 
+
+<script type="text/javascript">
+    var disqus_shortname = 'zrzrv5'; 
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<script type="text/javascript">
+var disqus_shortname = 'zrzrv5'; 
+
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
   
     
 
