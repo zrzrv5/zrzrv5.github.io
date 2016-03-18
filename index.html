@@ -67,6 +67,10 @@
 
     <li><label>Categories</label></li>
 
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="MATLAB.html">MATLAB</a></li>
          
 
       </ul>
@@ -85,6 +89,202 @@
 	<div class="large-8 medium-8 columns">
 		<div class="markdown-body home-categories">
 		
+			<div class="article">
+                <a class="clearlink" href="14583177357023.html">
+                
+                  <h1>MATLAB 面向对象编程 学习笔记</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<blockquote>
+<p>官方PDF文档<a href="http://cn.mathworks.com/help/pdf_doc/matlab/matlab_oop.pdf">下载</a></p>
+</blockquote>
+
+<hr/>
+
+<ul>
+<li>
+<a href="#toc_0">概览</a>
+<ul>
+<li>
+<a href="#toc_1">为什么要使用面向对象?</a>
+</li>
+<li>
+<a href="#toc_2">使用句柄(handles)</a>
+</li>
+<li>
+<a href="#toc_3">Class</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<hr/>
+
+<h2 id="toc_0">概览</h2>
+
+<h3 id="toc_1">为什么要使用面向对象?</h3>
+
+<ul>
+<li><p>减少错误</p>
+
+<p>当任务越来越复杂时,那些函数也会变得越来越复杂,难以管理.尽管当函数变复杂时,大可以把它又拆分成许多小的简单函数,然后在它们之间传递数据.然而,当函数越来越多时,数据的设计与管理也会变得更加困难,也越有可能出bug</p></li>
+<li><p>对象有着<code>struct</code>和<code>array</code>没有的特性<br/>
+举个🌰:</p>
+
+<ul>
+<li>只在需要时才去计算属性的值</li>
+<li>当任何属性被请求或修改时发送通知</li>
+<li>能限制对属性和方法的访问</li>
+</ul></li>
+<li><p>减少冗余的代码,简化</p></li>
+<li><p>重载函数和操作符<br/>
+在定义了一个类时,可以重载MATLAB中已有的函数以配合对象使用</p></li>
+</ul>
+
+<h3 id="toc_2">使用句柄(handles)</h3>
+
+<ol>
+<li><p><strong>什么是handle</strong></p>
+
+<p>一个MATLAB对象就是一个handle,当变量hold住一个handle时,实际上是hold住了对象的一个引用(reference).Handle 可以让多个变量引用同一个对象.</p></li>
+</ol>
+
+<p>...</p>
+
+<h3 id="toc_3">Class</h3>
+
+<p><a href=""></a>    </p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/3/19</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='MATLAB.html'>MATLAB</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14583089838055.html">
+                
+                  <h1>MATLAB 中 class 的使用</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<hr/>
+
+<ul>
+<li>
+<a href="#toc_0">基础</a>
+</li>
+</ul>
+
+
+<hr/>
+
+<h2 id="toc_0">基础</h2>
+
+<ul>
+<li>定义类</li>
+</ul>
+
+<pre><code class="language-matlab">classdef BasicClass
+   properties
+    Value
+    end 
+    methods
+        function r = roundOff(obj)
+           r = round([obj.Value],2);
+       end
+       function r = multiplyBy(obj,n)
+            r = [obj.Value] * n;
+        end 
+    end
+end
+</code></pre>
+
+<ul>
+<li>创建实例</li>
+</ul>
+
+<pre><code>a = BasicClass
+</code></pre>
+
+<ul>
+<li><p>访问属性</p>
+
+<ul>
+<li><p>赋值 <code>a.Value = pi/3;</code></p></li>
+<li><p>获取 <code>a.Value</code></p></li>
+</ul></li>
+</ul>
+
+<!--- 初始化函数
+    
+```matlab
+classdef Student
+    %UNTITLED2 Summary of this class goes here
+    %   Detailed explanation goes here
+    
+    properties 
+        name
+        number
+    end
+    
+    methods
+        function init = Student(name,number)
+            init.name = name;
+            init.number = number;
+        end
+    end
+    
+end
+
+
+```
+-->
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/3/18</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='MATLAB.html'>MATLAB</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
 			<div class="article">
                 <a class="clearlink" href="14576725834921.html">
                 
@@ -196,7 +396,7 @@ healthKitStore.saveObject(sample, withCompletion: {
 
 <p><img src="media/14576725834921/IMG_4684.png" alt="IMG_4684"/><br/>
 <strong>注意：</strong><em>微信中不知道为什么好像只能添加到这个数,并且在测试中发现手机上的健康App的数据会短暂性消失,重启后才恢复正常,微信步数恢复正常而QQ健康的步数保持修改后步数</em><br/>
-<img src="media/14576725834921/IMG_4909.png" alt="IMG_4909"/></p>
+![IMG_4909](media/14576725834921/IMG_4909.png</p>
 
 <hr/>
 
@@ -212,7 +412,9 @@ healthKitStore.saveObject(sample, withCompletion: {
                   <div class="more-left left">
                   
                     <span class="date">2016/3/11</span>
-                    
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -304,6 +506,10 @@ healthKitStore.saveObject(sample, withCompletion: {
                 <div class="side-content">
 
       	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="MATLAB.html"><strong>MATLAB</strong></a>
          
         </p>
 
@@ -318,6 +524,18 @@ healthKitStore.saveObject(sample, withCompletion: {
                 <div class="side-content">
                 <ul class="posts-list">
 	      
+		      
+			      <li class="post">
+			        <a href="14583177357023.html">MATLAB 面向对象编程 学习笔记</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14583089838055.html">MATLAB 中 class 的使用</a>
+			      </li>
+		     
+		  
 		      
 			      <li class="post">
 			        <a href="14576725834921.html">不用绑狗就在QQ健康／微信运动 中甩出他人一大截-HealthKit初体验</a>

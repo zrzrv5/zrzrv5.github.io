@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Archives - .Del的脑洞
+  MATLAB 中 class 的使用 - .Del的脑洞
   
   </title>
   
@@ -82,78 +82,177 @@
         <section id="main-content" role="main" class="scroll-container">
  <script type="text/javascript">
   $(function(){
-    $('#menu_item_archives').addClass('is_active');
+    $('#menu_item_index').addClass('is_active');
   });
 </script>
 <div class="row">
   <div class="large-8 medium-8 columns">
-    <div id="archives-page-wrap">
-        <h1>Archives</h1>
-        <div class="markdown-body archives-wrap">
+      <div class="markdown-body article-wrap">
+       <div class="article">
           
-             
-                <h1>2016</h1>
-            
-            <div class="article">
-              <a class="clearlink" href="14583177357023.html">
-                <h1>MATLAB 面向对象编程 学习笔记</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2016/3/19</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='MATLAB.html'>MATLAB</a></span>
-                 
-              </div>
-            </div><!-- article -->
+          <h1>MATLAB 中 class 的使用</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2016/3/18</span>
 
+          <span>posted in&nbsp;</span> 
           
-            
-            <div class="article">
-              <a class="clearlink" href="14583089838055.html">
-                <h1>MATLAB 中 class 的使用</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2016/3/18</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='MATLAB.html'>MATLAB</a></span>
-                 
-              </div>
-            </div><!-- article -->
-
-          
-            
-            <div class="article">
-              <a class="clearlink" href="14576725834921.html">
-                <h1>不用绑狗就在QQ健康／微信运动 中甩出他人一大截-HealthKit初体验</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2016/3/11</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
-                 
-              </div>
-            </div><!-- article -->
-
-          
-            
-            <div class="article">
-              <a class="clearlink" href="14576719854493.html">
-                <h1>Hello World</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2016/3/11</span>
-                
-                 
-              </div>
-            </div><!-- article -->
-
+              <span class="posted-in"><a href='MATLAB.html'>MATLAB</a></span>
            
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <hr/>
+
+<ul>
+<li>
+<a href="#toc_0">基础</a>
+</li>
+</ul>
+
+
+<hr/>
+
+<h2 id="toc_0">基础</h2>
+
+<ul>
+<li>定义类</li>
+</ul>
+
+<pre><code class="language-matlab">classdef BasicClass
+   properties
+    Value
+    end 
+    methods
+        function r = roundOff(obj)
+           r = round([obj.Value],2);
+       end
+       function r = multiplyBy(obj,n)
+            r = [obj.Value] * n;
+        end 
+    end
+end
+</code></pre>
+
+<ul>
+<li>创建实例</li>
+</ul>
+
+<pre><code>a = BasicClass
+</code></pre>
+
+<ul>
+<li><p>访问属性</p>
+
+<ul>
+<li><p>赋值 <code>a.Value = pi/3;</code></p></li>
+<li><p>获取 <code>a.Value</code></p></li>
+</ul></li>
+</ul>
+
+<!--- 初始化函数
+    
+```matlab
+classdef Student
+    %UNTITLED2 Summary of this class goes here
+    %   Detailed explanation goes here
+    
+    properties 
+        name
+        number
+    end
+    
+    methods
+        function init = Student(name,number)
+            init.name = name;
+            init.number = number;
+        end
+    end
+    
+end
+
+
+```
+-->
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14583177357023.html" 
+          title="Previous Post: MATLAB 面向对象编程 学习笔记">&laquo; MATLAB 面向对象编程 学习笔记</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14576725834921.html" 
+          title="Next Post: 不用绑狗就在QQ健康／微信运动 中甩出他人一大截-HealthKit初体验">不用绑狗就在QQ健康／微信运动 中甩出他人一大截-HealthKit初体验 &raquo;</a>
+      
+      </p>
         </div>
       </div>
-  </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+<a class="jiathis_button_tsina"></a>
+<a class="jiathis_button_weixin"></a>
+<a class="jiathis_button_instapaper"></a>
+<a class="jiathis_button_pocket"></a>
+<a class="jiathis_button_copy"></a>
+<a class="jiathis_button_googleplus"></a>
+<a class="jiathis_button_ydnote"></a>
+<a class="jiathis_button_evernote"></a>
+<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<div class="ds-thread" ></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zrzrv5"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
 
  <div class="large-4 medium-4 columns">
   <div class="hide-for-small">

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Archives - .Del的脑洞
+  MATLAB 面向对象编程 学习笔记 - .Del的脑洞
   
   </title>
   
@@ -82,78 +82,162 @@
         <section id="main-content" role="main" class="scroll-container">
  <script type="text/javascript">
   $(function(){
-    $('#menu_item_archives').addClass('is_active');
+    $('#menu_item_index').addClass('is_active');
   });
 </script>
 <div class="row">
   <div class="large-8 medium-8 columns">
-    <div id="archives-page-wrap">
-        <h1>Archives</h1>
-        <div class="markdown-body archives-wrap">
+      <div class="markdown-body article-wrap">
+       <div class="article">
           
-             
-                <h1>2016</h1>
-            
-            <div class="article">
-              <a class="clearlink" href="14583177357023.html">
-                <h1>MATLAB 面向对象编程 学习笔记</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2016/3/19</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='MATLAB.html'>MATLAB</a></span>
-                 
-              </div>
-            </div><!-- article -->
+          <h1>MATLAB 面向对象编程 学习笔记</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2016/3/19</span>
 
+          <span>posted in&nbsp;</span> 
           
-            
-            <div class="article">
-              <a class="clearlink" href="14583089838055.html">
-                <h1>MATLAB 中 class 的使用</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2016/3/18</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='MATLAB.html'>MATLAB</a></span>
-                 
-              </div>
-            </div><!-- article -->
-
-          
-            
-            <div class="article">
-              <a class="clearlink" href="14576725834921.html">
-                <h1>不用绑狗就在QQ健康／微信运动 中甩出他人一大截-HealthKit初体验</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2016/3/11</span>
-                <span>posted in&nbsp;</span> 
-                
-                    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
-                 
-              </div>
-            </div><!-- article -->
-
-          
-            
-            <div class="article">
-              <a class="clearlink" href="14576719854493.html">
-                <h1>Hello World</h1>
-              </a>
-              <div class="read-more clearfix">
-                <span class="date">2016/3/11</span>
-                
-                 
-              </div>
-            </div><!-- article -->
-
+              <span class="posted-in"><a href='MATLAB.html'>MATLAB</a></span>
            
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <blockquote>
+<p>官方PDF文档<a href="http://cn.mathworks.com/help/pdf_doc/matlab/matlab_oop.pdf">下载</a></p>
+</blockquote>
+
+<hr/>
+
+<ul>
+<li>
+<a href="#toc_0">概览</a>
+<ul>
+<li>
+<a href="#toc_1">为什么要使用面向对象?</a>
+</li>
+<li>
+<a href="#toc_2">使用句柄(handles)</a>
+</li>
+<li>
+<a href="#toc_3">Class</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<hr/>
+
+<h2 id="toc_0">概览</h2>
+
+<h3 id="toc_1">为什么要使用面向对象?</h3>
+
+<ul>
+<li><p>减少错误</p>
+
+<p>当任务越来越复杂时,那些函数也会变得越来越复杂,难以管理.尽管当函数变复杂时,大可以把它又拆分成许多小的简单函数,然后在它们之间传递数据.然而,当函数越来越多时,数据的设计与管理也会变得更加困难,也越有可能出bug</p></li>
+<li><p>对象有着<code>struct</code>和<code>array</code>没有的特性<br/>
+举个🌰:</p>
+
+<ul>
+<li>只在需要时才去计算属性的值</li>
+<li>当任何属性被请求或修改时发送通知</li>
+<li>能限制对属性和方法的访问</li>
+</ul></li>
+<li><p>减少冗余的代码,简化</p></li>
+<li><p>重载函数和操作符<br/>
+在定义了一个类时,可以重载MATLAB中已有的函数以配合对象使用</p></li>
+</ul>
+
+<h3 id="toc_2">使用句柄(handles)</h3>
+
+<ol>
+<li><p><strong>什么是handle</strong></p>
+
+<p>一个MATLAB对象就是一个handle,当变量hold住一个handle时,实际上是hold住了对象的一个引用(reference).Handle 可以让多个变量引用同一个对象.</p></li>
+</ol>
+
+<p>...</p>
+
+<h3 id="toc_3">Class</h3>
+
+<p><a href=""></a>    </p>
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14583089838055.html" 
+          title="Next Post: MATLAB 中 class 的使用">MATLAB 中 class 的使用 &raquo;</a>
+      
+      </p>
         </div>
       </div>
-  </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+<a class="jiathis_button_tsina"></a>
+<a class="jiathis_button_weixin"></a>
+<a class="jiathis_button_instapaper"></a>
+<a class="jiathis_button_pocket"></a>
+<a class="jiathis_button_copy"></a>
+<a class="jiathis_button_googleplus"></a>
+<a class="jiathis_button_ydnote"></a>
+<a class="jiathis_button_evernote"></a>
+<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<div class="ds-thread" ></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zrzrv5"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
 
  <div class="large-4 medium-4 columns">
   <div class="hide-for-small">
