@@ -162,6 +162,55 @@ end
 </ul></li>
 </ul>
 
+<p><strong>例子:</strong><br/>
+第一次MATLAB编程走了很多坑,很多地方都不习惯</p>
+
+<pre><code class="language-matlab">classdef Term
+    %UNTITLED4 Summary of this class goes here
+    %   Detailed explanation goes here
+    
+    properties
+        termGPA %学期绩点
+        %termName %第一学期/第二学期
+        lessons = []
+        termNo
+    end
+    
+    methods
+        function self = Term(name,gpa,lessons)
+            %String,Double,[Lesson]?
+            self.lessons = lessons;
+            
+            self.termGPA = gpa;
+            if isequal(name,&#39;第一学期&#39;)
+                self.termNo = 1;
+            else
+                self.termNo = 2;
+            end
+        end
+        
+        function  self = appendLessons(self,newLessons)
+            self.lessons = [self.lessons,newLessons];
+           
+        end
+     
+    end
+    
+end
+
+
+</code></pre>
+
+<p>一开始<code>appendLessons</code>想当然地写成了</p>
+
+<pre><code class="language-matlab">function   appendLessons(self,newLessons)
+            self.lessons = [self.lessons,newLessons];
+           
+end
+</code></pre>
+
+<p>后来发现实际对象的属性并没有变,改成<code>self = appendLessons(self,newLessons)</code>就OK了</p>
+
 <!--- 初始化函数
     
 ```matlab
