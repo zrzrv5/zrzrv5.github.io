@@ -1,0 +1,629 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+  
+  iOS打造自定义输入法 - .Del的脑洞
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title=".Del的脑洞" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <link rel="shortcut icon" href="asset/favicon.ico" />
+
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </head>
+  <body class="antialiased hide-extras">
+
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        <li id="menu_item_index"><a href="index.html">HOME</a></li>
+        <li id="menu_item_archives"><a href="archives.html">Archives</a></li>
+        <li id="menu_item_about"><a href="about.html">ABOUT</a></li>
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" action="http://google.com/search" method="get">
+    <input type="hidden" name="q" value="site:" />
+    <input tabindex="1" type="search" name="q"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; .Del的脑洞</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="MATLAB.html">MATLAB</a></li>
+        
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>iOS打造自定义输入法</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2016/3/22</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+           
+         
+          <span class="comments">
+            
+              <a href="14585908926239.html#disqus_thread">comments</a>
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p>最近需要输入音标,一时间没有找到合适的App,于是就考虑自己写一个简单的音标输入法</p>
+
+<blockquote>
+<p>要求:<code>Swift 2</code>,<code>Xcode 7</code></p>
+</blockquote>
+
+<p><strong>iOS新手,代码略混乱</strong></p>
+
+<hr/>
+
+<ul>
+<li>
+<a href="#toc_0">概述</a>
+<ul>
+<li>
+<a href="#toc_1">APP Extension</a>
+</li>
+<li>
+<a href="#toc_2">自定义键盘</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_3">Let&#39;s Code</a>
+</li>
+<li>
+<a href="#toc_5">The End</a>
+</li>
+</ul>
+
+
+<hr/>
+
+<h2 id="toc_0">概述</h2>
+
+<h3 id="toc_1">APP Extension</h3>
+
+<p><a href="https://developer.apple.com/app-extensions/">App Extension</a>允许用户在整个系统(iOS/OSX)使用App的一些功能,其中就包括自定义键盘.</p>
+
+<h3 id="toc_2">自定义键盘</h3>
+
+<p>自定义键盘在<a href="">苹果官方文档</a>里已经介绍得比较详细了.<br/>
+主要有以下几点注意:</p>
+
+<ul>
+<li>如果只是为你自己的App而打造的输入键盘,那就不要用自定义键盘,iOS提供了更好的选择: <a href="https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/InputViews/InputViews.html#//apple_ref/doc/uid/TP40009542-CH12">Custom Views for Data Input</a> in <a href="https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009542">Text Programming Guide for iOS.</a></li>
+<li>自定义键盘必须要能够切换到别的键盘</li>
+<li>自定义键盘在有时候是不能输入的(例如输入安全信息时,电话键盘...)</li>
+<li>自定义键盘是无法像系统键盘一样超出键盘范围范围</li>
+<li>一大堆限制,加密,麦克风等都不行</li>
+</ul>
+
+<span id="more"></span><!-- more -->
+
+<h2 id="toc_3">Let&#39;s Code</h2>
+
+<ol>
+<li>新建工程后新建一个Target,自然是选择Custom Keyboard<img src="media/14585908926239/14585932847785.jpg" alt=""/></li>
+<li>开始写界面,其实可以用Storyboard来写的,但是这里为了简单就直接写View&amp;xib了
+界面大概是这样:
+keyboardView<img src="media/14585908926239/14585935787843.jpg" alt="KVB"/>
+collectionView里面显示48个基本IPA88音标,左下角的地球代表换键盘,右下角的DELETE代表删除
+至于collectionView的Cell,我做的比较简单,就塞个Label进去
+<img src="media/14585908926239/14585937011652.jpg" alt="KeyCell"/></li>
+<li><p>然后把对应的类写好<br/>
+KeyCell:</p>
+
+<pre><code class="language-swift">//
+//  KeyCell.swift
+//  timelineDEMO
+//
+//  Created by 薛定谔弄死的猫 on 16/3/21.
+//  Copyright © 2016年 薛定谔弄死的猫. All rights reserved.
+//
+
+import UIKit
+
+@IBDesignable class KeyCell: UICollectionViewCell {
+    var view :UIView!
+
+override init(frame: CGRect) {
+    // 1. setup any properties here
+
+    // 2. call super.init(frame:)
+    super.init(frame: frame)
+
+    // 3. Setup view from .xib file
+    xibSetup()
+}
+
+required init?(coder aDecoder: NSCoder) {
+    // 1. setup any properties here
+
+    // 2. call super.init(coder:)
+    super.init(coder: aDecoder)
+
+    // 3. Setup view from .xib file
+    xibSetup()
+}
+func xibSetup() {
+    view = loadViewFromNib()
+
+    // use bounds not frame or it&#39;ll be offset
+    view.frame = bounds
+
+    // Make the view stretch with containing view
+    view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+
+    // Adding custom subview on top of our view (over any custom drawing &gt; see note below)
+    addSubview(view)
+}
+
+func loadViewFromNib()-&gt;UIView{
+
+    let bundle = NSBundle(forClass: self.dynamicType)
+    let nib = UINib(nibName: &quot;KeyCell&quot;, bundle: bundle)
+    let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+
+    return view
+    }
+
+}
+</code></pre>
+
+<p>再在KeyboardView里面加上音标</p>
+
+<pre><code class="language-swift">var keys = keys = [&quot;ɪ&quot;,&quot;ə&quot;,&quot;ɒ&quot;,&quot;ʊ&quot;,&quot;ʌ&quot;,&quot;e&quot;,&quot;æ&quot;,&quot;i:&quot;,&quot;ɜ:&quot;,&quot;ɔ:&quot;,&quot;u:&quot;,&quot;ɑ:&quot;,&quot;eɪ&quot;,&quot;aɪ&quot;,&quot;ɔɪ&quot;,&quot;aʊ&quot;,&quot;əʊ&quot;,&quot;ɪə&quot;,&quot;ɛə&quot;,&quot;ʊə&quot;,&quot;p&quot;,&quot;t&quot;,&quot;k&quot;,&quot;f&quot;,&quot;θ&quot;,&quot;s&quot;,&quot;ts&quot;,&quot;tr&quot;,&quot;∫&quot;,&quot;t∫&quot;,&quot;b&quot;,&quot;d&quot;,&quot;g&quot;,&quot;v&quot;,&quot;ð&quot;,&quot;z&quot;,&quot;dz&quot;,&quot;dr&quot;,&quot;ʒ&quot;,&quot;dʒ&quot;,&quot;m&quot;,&quot;n&quot;,&quot;ŋ&quot;,&quot;h&quot;,&quot;l&quot;,&quot;r&quot;,&quot;j&quot;,&quot;w&quot;]
+</code></pre>
+
+<p>加上collectionView的dataSource和delegate.我这里的keyboardView继承的是<code>UIControl</code>,在collectionView的<code>collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)</code>方法里使用        <code>sendActionsForControlEvents(.ValueChanged)</code>来处理交互相应<br/>
+整个keyboardView的代码如下:(这里处理点击文本较为粗糙,直接使用一个<code>currentText</code>)</p>
+
+<pre><code class="language-swift">    //
+//  KBV.swift
+//  timelineDEMO
+//
+//  Created by 薛定谔弄死的猫 on 16/3/21.
+//  Copyright © 2016年 薛定谔弄死的猫. All rights reserved.
+//
+
+import UIKit
+
+@IBDesignable class KBV: UIControl,UICollectionViewDataSource,UICollectionViewDelegate {
+
+var view :UIView!
+var keys = [String]()
+var currentText = &quot;&quot;
+
+@IBOutlet weak var collectionView: UICollectionView!
+
+@IBAction func deleteInput(sender: AnyObject) {
+    currentText = &quot;DELETE&quot;
+    sendActionsForControlEvents(.ValueChanged)
+}
+
+override init(frame: CGRect) {
+    // 1. setup any properties here
+    // 2. call super.init(frame:)
+    super.init(frame: frame)
+
+    // 3. Setup view from .xib file
+    xibSetup()
+}
+
+required init?(coder aDecoder: NSCoder) {
+    // 1. setup any properties here
+
+    // 2. call super.init(coder:)
+    super.init(coder: aDecoder)
+
+    // 3. Setup view from .xib file
+    xibSetup()
+}
+func xibSetup() {
+    view = loadViewFromNib()
+
+    // use bounds not frame or it&#39;ll be offset
+    view.frame = bounds
+
+    // Make the view stretch with containing view
+    view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+
+    // Adding custom subview on top of our view (over any custom drawing &gt; see note below)
+    addSubview(view)
+    setUpUI()
+}
+
+func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -&gt; Int {
+    return keys.count
+}
+func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -&gt; UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(&quot;cell&quot;, forIndexPath: indexPath)
+    (cell.viewWithTag(1)as!UILabel).text = keys[indexPath.row]
+
+    return cell
+}
+
+func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    print(&quot;input IPA:\(keys[indexPath.row])&quot;)
+    self.currentText = keys[indexPath.row]
+    sendActionsForControlEvents(.ValueChanged)
+}
+
+func loadViewFromNib()-&gt;UIView{
+
+    let bundle = NSBundle(forClass: self.dynamicType)
+    let nib = UINib(nibName: &quot;KBV&quot;, bundle: bundle)
+    let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+
+    return view
+}
+
+func setUpUI(){
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    collectionView.registerClass(KeyCell.self, forCellWithReuseIdentifier: &quot;cell&quot;)
+    setUpKeys()
+
+}
+
+func setUpKeys()  {
+
+    keys = [&quot;ɪ&quot;,&quot;ə&quot;,&quot;ɒ&quot;,&quot;ʊ&quot;,&quot;ʌ&quot;,&quot;e&quot;,&quot;æ&quot;,&quot;i:&quot;,&quot;ɜ:&quot;,&quot;ɔ:&quot;,&quot;u:&quot;,&quot;ɑ:&quot;,&quot;eɪ&quot;,&quot;aɪ&quot;,&quot;ɔɪ&quot;,&quot;aʊ&quot;,&quot;əʊ&quot;,&quot;ɪə&quot;,&quot;ɛə&quot;,&quot;ʊə&quot;,&quot;p&quot;,&quot;t&quot;,&quot;k&quot;,&quot;f&quot;,&quot;θ&quot;,&quot;s&quot;,&quot;ts&quot;,&quot;tr&quot;,&quot;∫&quot;,&quot;t∫&quot;,&quot;b&quot;,&quot;d&quot;,&quot;g&quot;,&quot;v&quot;,&quot;ð&quot;,&quot;z&quot;,&quot;dz&quot;,&quot;dr&quot;,&quot;ʒ&quot;,&quot;dʒ&quot;,&quot;m&quot;,&quot;n&quot;,&quot;ŋ&quot;,&quot;h&quot;,&quot;l&quot;,&quot;r&quot;,&quot;j&quot;,&quot;w&quot;]
+    collectionView.reloadData()
+}
+
+@IBAction func changeKB(sender: AnyObject) {
+    currentText = &quot;NextKeyboard&quot;
+    sendActionsForControlEvents(.ValueChanged)
+}
+}
+
+</code></pre></li>
+<li><p>设置<code>KeyboardViewController</code></p>
+
+<ol>
+<li><p>设置键盘约束</p>
+
+<pre><code class="language-swift">override func updateViewConstraints() {
+super.updateViewConstraints()
+
+let constraints1 = NSLayoutConstraint(item: keyboardView, attribute: .Trailing, relatedBy: .Equal, toItem: view, attribute: .Trailing, multiplier: 1, constant: 0)
+let constraints2 = NSLayoutConstraint(item: keyboardView, attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0)
+let constraints3 = NSLayoutConstraint(item: keyboardView, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 0)
+let constraints4 = NSLayoutConstraint(item: keyboardView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
+view.addConstraints([constraints1,constraints2,constraints3,constraints4])
+
+// Add custom view sizing constraints here
+}
+</code></pre></li>
+<li><p>监听<code>keyboardView</code>的ValueChanged:<code>keyboardView.addTarget(self, action: &quot;handleInput&quot;, forControlEvents: .ValueChanged)</code></p></li>
+<li><p>处理点击按钮</p>
+
+<pre><code class="language-swift">    func handleInput()  {
+let proxy = textDocumentProxy
+
+switch keyboardView.currentText {
+case &quot;DELETE&quot;:
+    print(&quot;DELETE&quot;)
+    proxy.deleteBackward()
+
+case &quot;NextKeyboard&quot; :
+    print(&quot;NextKeyboard&quot;)
+    advanceToNextInputMode()
+
+default:
+    print(keyboardView.currentText)
+    proxy.insertText(keyboardView.currentText)
+
+}
+}
+</code></pre>
+
+<p>4.删除默认的那个及其相关代码</p>
+
+<pre><code class="language-swift">@IBOutlet var nextKeyboardButton: UIButton!
+</code></pre></li>
+</ol>
+
+<p>至此这个粗糙的音标键盘就完成了</p>
+
+<h2 id="toc_4">效果</h2>
+
+<blockquote>
+<p><strong>注意不要忘了在设置里把键盘添加上</strong></p>
+</blockquote>
+
+<p>长按地球图标切换键盘:<img src="media/14585908926239/14585948221107.jpg" alt=""/></p></li>
+</ol>
+
+<p>动态演示:<br/>
+<img src="media/14585908926239/IPAKeyboard.gif" alt="IPAKeyboard"/></p>
+
+<h2 id="toc_5">The End</h2>
+
+<p>也许是时候,写一个表情包输入法了🌝🌚  </p>
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14583177357023.html" 
+          title="Next Post: MATLAB 面向对象编程 学习笔记">MATLAB 面向对象编程 学习笔记 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+<a class="jiathis_button_tsina"></a>
+<a class="jiathis_button_weixin"></a>
+<a class="jiathis_button_instapaper"></a>
+<a class="jiathis_button_pocket"></a>
+<a class="jiathis_button_copy"></a>
+<a class="jiathis_button_googleplus"></a>
+<a class="jiathis_button_ydnote"></a>
+<a class="jiathis_button_evernote"></a>
+<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<div class="ds-thread" ></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zrzrv5"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+          
+            <div id="disqus_thread"></div>
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>.Del的脑洞</h1>
+                <div class="site-des"></div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="MATLAB.html"><strong>MATLAB</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="14585908926239.html">iOS打造自定义输入法</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14583177357023.html">MATLAB 面向对象编程 学习笔记</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14583089838055.html">MATLAB 中 class 的使用</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14576725834921.html">不用绑狗就在QQ健康／微信运动 中甩出他人一大截-HealthKit初体验</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14576719854493.html">Hello World</a>
+			      </li>
+		     
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'zrzrv5'; 
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+<script type="text/javascript">
+var disqus_shortname = 'zrzrv5'; 
+
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>
