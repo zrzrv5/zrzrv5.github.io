@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
   
-  不用绑狗就在QQ健康／微信运动 中甩出他人一大截-HealthKit初体验 - .Del的脑洞
+  几张守望先锋的手机壁纸 - .Del的脑洞
   
   </title>
   
@@ -96,19 +96,19 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>不用绑狗就在QQ健康／微信运动 中甩出他人一大截-HealthKit初体验</h1>
+          <h1>几张守望先锋的手机壁纸</h1>
      
         <div class="read-more clearfix">
-          <span class="date">2016/3/11</span>
+          <span class="date">2016/12/16</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+              <span class="posted-in"><a href='%E6%9D%82.html'>杂</a></span>
            
          
           <span class="comments">
             
-              <a href="14576725834921.html#disqus_thread">comments</a>
+              <a href="14818718954340.html#disqus_thread">comments</a>
             
 
             
@@ -118,118 +118,234 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <hr/>
+      <p>随手做的几张守望先锋壁纸,规格按Plus 尺寸来的,每种都有黑白两色</p>
 
-<h2 id="toc_0">要求</h2>
+<p><img src="media/14818718954340/Banner.png" alt="Banne"/></p>
 
-<p>Xcode 7 <code>swift2.0</code><br/>
-iPhone</p>
-
-<h2 id="toc_1">背景</h2>
-
-<p><a href="https://developer.apple.com/healthkit/">HealthKit</a>是iOS 8中加入的新东西(iOS9.3中加入了<a href="https://developer.apple.com/library/prerelease/ios/documentation/Miscellaneous/Reference/HealthKitUI_Framework/index.html#//apple_ref/doc/uid/TP40016713">HealthKitUI 框架</a>)，通过<a href="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/index.html#//apple_ref/doc/uid/TP40014707">HealthKit框架</a>就可以方便地获取和添加运动，营养，身理数据</p>
+<blockquote>
+<p>点击下面的目录可以快速定位</p>
+</blockquote>
 
 <span id="more"></span><!-- more -->
 
-<h2 id="toc_2">流程</h2>
-
-<h4 id="toc_3">往<code>HealthKit</code>中添加数据</h4>
-
-<p><span id = "jump"></span><br/>
-<img src="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/Art/quantity_sample_2x.png" alt="往`HealthKit`中添加数据"/></p>
-
-<h2 id="toc_4">Let&#39;s Code</h2>
-
 <ul>
-<li><p>在Capabilities中打开Healthkit</p></li>
-<li><p>创建一个<code>HealthManger</code>类</p>
-
+<li>
+<a href="#toc_0">堡垒</a>
+</li>
+<li>
+<a href="#toc_1">D.VA</a>
 <ul>
-<li><p>导入HealthKit并且创建一个<code>HKHealthStore</code>实例</p>
-
-<pre><code class="language-swift">import Foundation
-import HealthKit
-class HealthManger {
-let healthKitStore :HKHealthStore = HKHealthStore()
-}
-</code></pre></li>
-<li><p>获得授权<br/>
- 1 设置需要读取的类型,这里我们实际上并不需要读什么,完全可以设为<code>nil</code></p>
-
-<pre><code class="language-swift">let healthKitTypesToRead = Set(arrayLiteral: HKObjectType.workoutType())
-</code></pre>
-
-<p>2  设置需要写入的类型    ,我们要写入步数需要的是<code>HKQuantityTypeIdentifierStepCount</code>,</p>
-
-<pre><code class="language-swift">let healthKitTypesToWrite = Set(arrayLiteral:HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!,HKQuantityType.workoutType())
-
-</code></pre>
-
-<p>3 检测HealthKit是否可用(例如iPad,企业或学校配发的iPhone就不可用)</p>
-
-<pre><code class="language-swift">if !HKHealthStore.isHealthDataAvailable()
-{
-    let error = NSError(domain: &quot;xyz.limlabs.healthKitDEMO&quot;, code: 2, userInfo: [NSLocalizedDescriptionKey:&quot;HealthKit is not available in this Device&quot;])
-    if( completion != nil )
-    {
-        completion(success:false, error:error)
-    }
-    return;
-}
-</code></pre>
-
-<p>4 请求授权</p>
-
-<blockquote>
-<p>还可以通过设置info.plist的<code>NSHealthShareUsageDescription</code> 和<code>NSHealthUpdateUsageDescription</code>来显示自定义的允许消息</p>
-</blockquote>
-
-<pre><code class="language-swift">healthKitStore.requestAuthorizationToShareTypes(healthKitTypesToWrite, readTypes: healthKitTypesToRead) { (success, error) -&gt; Void in
-
-    if( completion != nil )
-    {
-        completion(success:success,error:error)
-    }
-}
-</code></pre></li>
-<li><p>写入数据<br/>
-像之前在<a href="#jump">流程里</a>所描述的那样,要把步数加进去只需设置步数所对应的<code>HKObjectType</code>和<code>HKQuantity</code>即可</p>
-
-<pre><code class="language-swift">func addStep(stepCount:Double){
-   let startDate =  NSDate()
-   let endDate = NSDate()
-   let type = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
- let quantity = HKQuantity(unit: HKUnit.countUnit(), doubleValue: stepCount)
-  let sample = HKQuantitySample(type: type!, quantity: quantity, startDate: startDate, endDate: endDate)
-healthKitStore.saveObject(sample, withCompletion: {
-    (success, error) -&gt; Void in
-
-    if( error != nil ) {
-        print(&quot;Error saving step count: \(error!.localizedDescription)&quot;)
-    } else {
-        print(&quot;step count saved successfully!&quot;)
-    }
-
-}
-</code></pre></li>
-</ul></li>
+<li>
+<a href="#toc_2">我在飞</a>
+</li>
+<li>
+<a href="#toc_3">机甲激活</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_4">半藏</a>
+<ul>
+<li>
+<a href="#toc_5">按&#39;H&#39;更换英雄</a>
+</li>
+<li>
+<a href="#toc_6">重建帝国</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_7">美</a>
+<ul>
+<li>
+<a href="#toc_8">冻住不洗澡</a>
+</li>
+<li>
+<a href="#toc_9">FREEZE DON&#39;T MOVE</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_10">天使</a>
+<ul>
+<li>
+<a href="#toc_11">英雄不朽</a>
+</li>
+<li>
+<a href="#toc_12">小王八蛋们(非官方Q版)</a>
+</li>
+<li>
+<a href="#toc_13">小王八蛋们(官方Q版)</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_14">法拉</a>
+<ul>
+<li>
+<a href="#toc_15">目标击落</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_16">死神</a>
+<ul>
+<li>
+<a href="#toc_17">DIE!DIEDIE!</a>
+</li>
+<li>
+<a href="#toc_18">呆呆呆</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_19">托比昂</a>
+<ul>
+<li>
+<a href="#toc_20">他强任他强,我玩托比昂</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_21">查莉娅</a>
+<ul>
+<li>
+<a href="#toc_22">Game Plays You</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_23">全家福</a>
+<ul>
+<li>
+<a href="#toc_24">22英雄+LOGO</a>
+</li>
+<li>
+<a href="#toc_25">22英雄 无LOGO</a>
+</li>
+</ul>
+</li>
 </ul>
 
-<ul>
-<li>  之后在你需要的地方创建<code>HealthManger</code>的实例并调用授权,调用完毕后就可以使用<code>addStep(步数)</code>往HealthKit里添加步数了</li>
-</ul>
-
-<h2 id="toc_5">开始秒杀朋友圈/QQ</h2>
-
-<p><img src="media/14576725834921/IMG_4684.png" alt="IMG_4684"/><br/>
-<strong>注意：</strong><em>微信中不知道为什么好像只能添加到这个数,并且在测试中发现手机上的健康App的数据会短暂性消失,重启后才恢复正常,微信步数恢复正常而QQ健康的步数保持修改后步数</em><br/>
-![IMG_4909](media/14576725834921/IMG_4909.png</p>
 
 <hr/>
 
-<p>参考:<br/>
-1. <a href="https://www.raywenderlich.com/86336/ios-8-healthkit-swift-getting-started">HealthKit Tutorial with Swift: Getting Started</a><br/><br/>
-2. <a href="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/index.html#//apple_ref/doc/uid/TP40014707">HealthKit Framework Reference</a>  </p>
+<h3 id="toc_0">堡垒</h3>
+
+<p><img src="media/14818718954340/BASTION_S_B.png" alt="BASTION_S_B"/><br/>
+<img src="media/14818718954340/BASTION_S_W.png" alt="BASTION_S"/></p>
+
+<hr/>
+
+<h3 id="toc_1">D.VA</h3>
+
+<h4 id="toc_2">我在飞</h4>
+
+<p><img src="media/14818718954340/DVA_S_B.png" alt="DVA_S_B"/></p>
+
+<p><img src="media/14818718954340/DVA_S_W.png" alt="DVA_S"/></p>
+
+<h4 id="toc_3">机甲激活</h4>
+
+<p><img src="media/14818718954340/DVA_V_B.png" alt="DVA_V_B"/><br/>
+<img src="media/14818718954340/DVA_V_W.png" alt="DVA_V"/></p>
+
+<hr/>
+
+<h3 id="toc_4">半藏</h3>
+
+<h4 id="toc_5">按&#39;H&#39;更换英雄</h4>
+
+<p><img src="media/14818718954340/HANZO_S_B.png" alt="HANZO_S_B"/></p>
+
+<p><img src="media/14818718954340/HANZO_S_W.png" alt="HANZO_S"/></p>
+
+<h4 id="toc_6">重建帝国</h4>
+
+<p><img src="media/14818718954340/SNIPERS_W.png" alt="SNIPERS"/></p>
+
+<p><img src="media/14818718954340/SNIPERS_B.png" alt="SNIPERS_B"/></p>
+
+<h3 id="toc_7">美</h3>
+
+<h4 id="toc_8">冻住不洗澡</h4>
+
+<p><img src="media/14818718954340/MEI_C_S_B.png" alt="MEI_C_S_B"/></p>
+
+<p><img src="media/14818718954340/MEI_C_S_W.png" alt="MEI_C_S"/></p>
+
+<h4 id="toc_9">FREEZE DON&#39;T MOVE</h4>
+
+<p><img src="media/14818718954340/MEI_E_S_B.png" alt="MEI_E_S_B"/><br/>
+<img src="media/14818718954340/MEI_E_S_W.png" alt="MEI_E_S"/></p>
+
+<h3 id="toc_10">天使</h3>
+
+<h4 id="toc_11">英雄不朽</h4>
+
+<p><img src="media/14818718954340/MERCY_E_S_W.png" alt="MERCY_E_S"/><br/>
+<img src="media/14818718954340/MERCY_E_S_B.png" alt="MERCY_E_S_B"/></p>
+
+<h4 id="toc_12">小王八蛋们(非官方Q版)</h4>
+
+<p><img src="media/14818718954340/MERCY_C_V_W.png" alt="MERCY_C_V"/><br/>
+<img src="media/14818718954340/MERCY_C_V_B.png" alt="MERCY_C_V_B"/></p>
+
+<h4 id="toc_13">小王八蛋们(官方Q版)</h4>
+
+<p><img src="media/14818718954340/MERCY_C_S_W.png" alt="MERCY_C_S"/></p>
+
+<p><img src="media/14818718954340/MERCY_C_S_B.png" alt="MERCY_C_S_B"/></p>
+
+<h3 id="toc_14">法拉</h3>
+
+<h4 id="toc_15">目标击落</h4>
+
+<p><img src="media/14818718954340/PHARAH_E_S_W.png" alt="PHARAH_E_S"/></p>
+
+<p><img src="media/14818718954340/PHARAH_E_S_B.png" alt="PHARAH_E_S_B"/></p>
+
+<h3 id="toc_16">死神</h3>
+
+<h4 id="toc_17">DIE!DIEDIE!</h4>
+
+<p><img src="media/14818718954340/REAPER_E_S_W.png" alt="REAPER_E_S"/><br/>
+<img src="media/14818718954340/REAPER_E_S_B.png" alt="REAPER_E_S_B"/></p>
+
+<h4 id="toc_18">呆呆呆</h4>
+
+<p><img src="media/14818718954340/REAPER_C_V_W.png" alt="REAPER_C_V"/></p>
+
+<p><img src="media/14818718954340/REAPER_C_V_B.png" alt="REAPER_C_V_B"/></p>
+
+<h3 id="toc_19">托比昂</h3>
+
+<h4 id="toc_20">他强任他强,我玩托比昂</h4>
+
+<p><img src="media/14818718954340/TORBJORN_C_S_W.png" alt="TORBJORN_C_S"/></p>
+
+<p><img src="media/14818718954340/TORBJORN_C_S_B.png" alt="TORBJORN_C_S_B"/></p>
+
+<h3 id="toc_21">查莉娅</h3>
+
+<h4 id="toc_22">Game Plays You</h4>
+
+<p><img src="media/14818718954340/ZARYA_V_W.png" alt="ZARYA_V"/></p>
+
+<p><img src="media/14818718954340/ZARYA_V_B.png" alt="ZARYA_V_B"/></p>
+
+<h3 id="toc_23">全家福</h3>
+
+<h4 id="toc_24">22英雄+LOGO</h4>
+
+<p><img src="media/14818718954340/HEROS_With_Logo_W.png" alt="HEROS_With_Logo"/><br/>
+<img src="media/14818718954340/HEROS_With_Logo_B.png" alt="HEROS_With_Logo_B"/></p>
+
+<h4 id="toc_25">22英雄 无LOGO</h4>
+
+<p><img src="media/14818718954340/HEROS_B.png" alt="HEROS_B"/></p>
+
+<p><img src="media/14818718954340/HEROS__W.png" alt="HEROS_"/></p>
 
       </div>
 
@@ -237,16 +353,13 @@ healthKitStore.saveObject(sample, withCompletion: {
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="14583089838055.html" 
-          title="Previous Post: MATLAB 中 class 的使用">&laquo; MATLAB 中 class 的使用</a>
-      
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="14576719854493.html" 
-          title="Next Post: Hello World">Hello World &raquo;</a>
+          <a  href="14810444537270.html" 
+          title="Next Post: Introducing ⎡我的课表 - MyTimetable⎦">Introducing ⎡我的课表 - MyTimetable⎦ &raquo;</a>
       
       </p>
         </div>
