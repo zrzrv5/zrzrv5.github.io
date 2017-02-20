@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-  
+    
   iOS打造自定义输入法 - .Del的脑洞
   
   </title>
@@ -15,15 +15,19 @@
     <link rel="stylesheet" href="asset/css/docs.css" />
     <script src="asset/js/vendor/modernizr.js"></script>
     <script src="asset/js/vendor/jquery.js"></script>
-    <link rel="shortcut icon" href="asset/favicon.ico" />
-
   <script src="asset/highlightjs/highlight.pack.js"></script>
   <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script>hljs.initHighlightingOnLoad();</script>
-
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site: ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
   </head>
   <body class="antialiased hide-extras">
-
+    
     <div class="marketing off-canvas-wrap" data-offcanvas>
       <div class="inner-wrap">
 
@@ -35,16 +39,18 @@
   <div class="row">
       <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
         <ul id="main-menu" class="left">
-        <li id="menu_item_index"><a href="index.html">HOME</a></li>
-        <li id="menu_item_archives"><a href="archives.html">Archives</a></li>
-        <li id="menu_item_about"><a href="about.html">ABOUT</a></li>
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
         </ul>
 
         <ul class="right" id="search-wrap">
           <li>
-<form target="_blank" action="http://google.com/search" method="get">
-    <input type="hidden" name="q" value="site:" />
-    <input tabindex="1" type="search" name="q"  placeholder="Search"/>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
 </form>
 </li>
           </ul>
@@ -62,7 +68,7 @@
 
 <aside class="left-off-canvas-menu">
       <ul class="off-canvas-list">
-
+       
        <li><a href="index.html">HOME</a></li>
     <li><a href="archives.html">Archives</a></li>
     <li><a href="about.html">ABOUT</a></li>
@@ -70,14 +76,12 @@
     <li><label>Categories</label></li>
 
         
-            <li><a href="Apps.html">Apps</a></li>
+            <li><a href="other.html">杂</a></li>
         
-            <li><a href="iOS.html">iOS</a></li>
+            <li><a href="ios.html">iOS</a></li>
         
-            <li><a href="MATLAB.html">MATLAB</a></li>
-        
-            <li><a href="%E6%9D%82.html">杂</a></li>
-        
+            <li><a href="matlab.html">MATLAB</a></li>
+         
 
       </ul>
     </aside>
@@ -86,6 +90,9 @@
 
 
         <section id="main-content" role="main" class="scroll-container">
+        
+       
+
  <script type="text/javascript">
   $(function(){
     $('#menu_item_index').addClass('is_active');
@@ -103,12 +110,10 @@
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+              <span class="posted-in"><a href='ios.html'>iOS</a></span>
            
          
           <span class="comments">
-            
-              <a href="14585908926239.html#disqus_thread">comments</a>
             
 
             
@@ -415,6 +420,9 @@ default:
 
 <p>也许是时候,写一个表情包输入法了🌝🌚  </p>
 
+
+    
+
       </div>
 
       <div class="row">
@@ -429,36 +437,16 @@ default:
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="14583177357023.html" 
-          title="Next Post: MATLAB 面向对象编程 学习笔记">MATLAB 面向对象编程 学习笔记 &raquo;</a>
+          <a  href="14583089838055.html" 
+          title="Next Post: MATLAB 中 class 的使用">MATLAB 中 class 的使用 &raquo;</a>
       
       </p>
         </div>
       </div>
       <div class="comments-wrap">
         <div class="share-comments">
-          <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style_32x32">
-<a class="jiathis_button_tsina"></a>
-<a class="jiathis_button_weixin"></a>
-<a class="jiathis_button_instapaper"></a>
-<a class="jiathis_button_pocket"></a>
-<a class="jiathis_button_copy"></a>
-<a class="jiathis_button_googleplus"></a>
-<a class="jiathis_button_ydnote"></a>
-<a class="jiathis_button_evernote"></a>
-<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-	summary:"",
-	shortUrl:false,
-	hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-<div class="ds-thread" ></div>
+          <!-- 多说评论框 start -->
+	<div class="ds-thread" ></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -468,15 +456,13 @@ var duoshuoQuery = {short_name:"zrzrv5"};
 		ds.type = 'text/javascript';ds.async = true;
 		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
 		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
+		(document.getElementsByTagName('head')[0]
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
 	})();
 	</script>
 <!-- 多说公共JS代码 end -->
 
 
-          
-            <div id="disqus_thread"></div>
           
 
           
@@ -494,7 +480,7 @@ var duoshuoQuery = {short_name:"zrzrv5"};
           <div id="site-info" class="site-info">
             
                 <h1>.Del的脑洞</h1>
-                <div class="site-des"></div>
+                <div class="site-des">.Del的脑洞</div>
                 <div class="social">
 
 
@@ -507,10 +493,13 @@ var duoshuoQuery = {short_name:"zrzrv5"};
 
 
 
-  <a class="rss" href="atom.xml" title="RSS">RSS</a>
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
                 
               	 </div>
           	</div>
+
+             
+
               <div id="site-categories" class="side-item ">
                 <div class="side-header">
                   <h2>Categories</h2>
@@ -519,13 +508,11 @@ var duoshuoQuery = {short_name:"zrzrv5"};
 
       	<p class="cat-list">
         
-            <a href="Apps.html"><strong>Apps</strong></a>
+            <a href="other.html"><strong>杂</strong></a>
         
-            <a href="iOS.html"><strong>iOS</strong></a>
+            <a href="ios.html"><strong>iOS</strong></a>
         
-            <a href="MATLAB.html"><strong>MATLAB</strong></a>
-        
-            <a href="%E6%9D%82.html"><strong>杂</strong></a>
+            <a href="matlab.html"><strong>MATLAB</strong></a>
          
         </p>
 
@@ -566,11 +553,9 @@ var duoshuoQuery = {short_name:"zrzrv5"};
 		  
 		      
 			      <li class="post">
-			        <a href="14583177357023.html">MATLAB 面向对象编程 学习笔记</a>
+			        <a href="14583089838055.html">MATLAB 中 class 的使用</a>
 			      </li>
 		     
-		  
-		      
 		  
 		      
 		  
@@ -597,27 +582,6 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
       </div>
     </div>
 
-
-<script type="text/javascript">
-    var disqus_shortname = 'zrzrv5'; 
-
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-
-<script type="text/javascript">
-var disqus_shortname = 'zrzrv5'; 
-
-(function () {
-var s = document.createElement('script'); s.async = true;
-s.type = 'text/javascript';
-s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-}());
-</script>
   
     
 
@@ -639,7 +603,7 @@ s.src = '//' + disqus_shortname + '.disqus.com/count.js';
     </script>
 
     
-
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
 
 
   </body>
