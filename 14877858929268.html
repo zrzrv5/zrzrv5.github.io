@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  不用绑狗就在QQ健康／微信运动 中甩出他人一大截-HealthKit初体验 - .Del的脑洞
+  课表2.0 ⎡L!NG⎦ - .Del的脑洞
   
   </title>
   
@@ -103,10 +103,10 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>不用绑狗就在QQ健康／微信运动 中甩出他人一大截-HealthKit初体验</h1>
+          <h1>课表2.0 ⎡L!NG⎦</h1>
      
         <div class="read-more clearfix">
-          <span class="date">2016/3/11</span>
+          <span class="date">2017/2/23</span>
 
           <span>posted in&nbsp;</span> 
           
@@ -123,118 +123,33 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <hr/>
+      <p><em>我的课表</em>改名为<strong>L!NG</strong>了.</p>
 
-<h2 id="toc_0">要求</h2>
+<h2 id="toc_0">这三个多月没更新都干了什么</h2>
 
-<p>Xcode 7 <code>swift2.0</code><br/>
-iPhone</p>
-
-<h2 id="toc_1">背景</h2>
-
-<p><a href="https://developer.apple.com/healthkit/">HealthKit</a>是iOS 8中加入的新东西(iOS9.3中加入了<a href="https://developer.apple.com/library/prerelease/ios/documentation/Miscellaneous/Reference/HealthKitUI_Framework/index.html#//apple_ref/doc/uid/TP40016713">HealthKitUI 框架</a>)，通过<a href="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/index.html#//apple_ref/doc/uid/TP40014707">HealthKit框架</a>就可以方便地获取和添加运动，营养，身理数据</p>
-
-<span id="more"></span><!-- more -->
-
-<h2 id="toc_2">流程</h2>
-
-<h4 id="toc_3">往<code>HealthKit</code>中添加数据</h4>
-
-<p><span id = "jump"></span><br/>
-<img src="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/Art/quantity_sample_2x.png" alt="往`HealthKit`中添加数据"/></p>
-
-<h2 id="toc_4">Let&#39;s Code</h2>
+<p>人呐就都不知道，自己就不可以预料。一个人的命运啊，当然要靠自我奋斗，但是也要考虑到历史的行程。我绝对不知道，我好端端的代码开启iCloud文稿后怎么就不见了，所以之后找了好久,直到放寒假后才找到，自言自语“我已经决定了，还是得用GitHub”，但是钱怎么办呢。我实在我也不是谦虚，我怎么有钱用GitHub咧？但是呢，GitHub有个“学生大礼包”，所以后来我就念了两句诗，叫“Shut up，take my money”，那么我就继续写代码开始开发了。<br/>
+寒假我这几十天也没干什么别的，大概就是完成之前定的三个需求</p>
 
 <ul>
-<li><p>在Capabilities中打开Healthkit</p></li>
-<li><p>创建一个<code>HealthManger</code>类</p>
-
-<ul>
-<li><p>导入HealthKit并且创建一个<code>HKHealthStore</code>实例</p>
-
-<pre><code class="language-swift">import Foundation
-import HealthKit
-class HealthManger {
-let healthKitStore :HKHealthStore = HKHealthStore()
-}
-</code></pre></li>
-<li><p>获得授权<br/>
- 1 设置需要读取的类型,这里我们实际上并不需要读什么,完全可以设为<code>nil</code></p>
-
-<pre><code class="language-swift">let healthKitTypesToRead = Set(arrayLiteral: HKObjectType.workoutType())
-</code></pre>
-
-<p>2  设置需要写入的类型    ,我们要写入步数需要的是<code>HKQuantityTypeIdentifierStepCount</code>,</p>
-
-<pre><code class="language-swift">let healthKitTypesToWrite = Set(arrayLiteral:HKObjectType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)!,HKQuantityType.workoutType())
-
-</code></pre>
-
-<p>3 检测HealthKit是否可用(例如iPad,企业或学校配发的iPhone就不可用)</p>
-
-<pre><code class="language-swift">if !HKHealthStore.isHealthDataAvailable()
-{
-    let error = NSError(domain: &quot;xyz.limlabs.healthKitDEMO&quot;, code: 2, userInfo: [NSLocalizedDescriptionKey:&quot;HealthKit is not available in this Device&quot;])
-    if( completion != nil )
-    {
-        completion(success:false, error:error)
-    }
-    return;
-}
-</code></pre>
-
-<p>4 请求授权</p>
-
-<blockquote>
-<p>还可以通过设置info.plist的<code>NSHealthShareUsageDescription</code> 和<code>NSHealthUpdateUsageDescription</code>来显示自定义的允许消息</p>
-</blockquote>
-
-<pre><code class="language-swift">healthKitStore.requestAuthorizationToShareTypes(healthKitTypesToWrite, readTypes: healthKitTypesToRead) { (success, error) -&gt; Void in
-
-    if( completion != nil )
-    {
-        completion(success:success,error:error)
-    }
-}
-</code></pre></li>
-<li><p>写入数据<br/>
-像之前在<a href="#jump">流程里</a>所描述的那样,要把步数加进去只需设置步数所对应的<code>HKObjectType</code>和<code>HKQuantity</code>即可</p>
-
-<pre><code class="language-swift">func addStep(stepCount:Double){
-   let startDate =  NSDate()
-   let endDate = NSDate()
-   let type = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
- let quantity = HKQuantity(unit: HKUnit.countUnit(), doubleValue: stepCount)
-  let sample = HKQuantitySample(type: type!, quantity: quantity, startDate: startDate, endDate: endDate)
-healthKitStore.saveObject(sample, withCompletion: {
-    (success, error) -&gt; Void in
-
-    if( error != nil ) {
-        print(&quot;Error saving step count: \(error!.localizedDescription)&quot;)
-    } else {
-        print(&quot;step count saved successfully!&quot;)
-    }
-
-}
-</code></pre></li>
-</ul></li>
+<li><strong>本地化</strong>,资瓷英文和中文</li>
+<li>滋瓷自定义<code>JavaScript</code> 代码以提供安全的<strong>一键导入</strong>功能</li>
+<li><strong>定制化表盘挂件</strong></li>
 </ul>
 
-<ul>
-<li>  之后在你需要的地方创建<code>HealthManger</code>的实例并调用授权,调用完毕后就可以使用<code>addStep(步数)</code>往HealthKit里添加步数了</li>
-</ul>
+<p>如果说还有一点什么改进那就是增加了<strong>文档中心</strong>。因为中间一段时间在折腾网站和CMS，所以实际开发时间也就一个多月。还有<strong>Bug修复</strong>也是很重要的。但这些都是次要的，我主要的我就是这三个改进，很惭愧，就做了一点微小的改进。<br/>
+我知道这里洋文好的人多得很,所以也希望大家能给英文翻译提个意见.<br/>
+目前2.0.1版本已经发布，2.1版本正在审核。<br/><br/>
+<strong>下载地址</strong><br/>
+L!NG - My Extensible School Timetable <br/>
+<a href="https://itunes.apple.com/cn/app/l-ng-my-extensible-school-timetable/id1164016936?l=en&amp;mt=8">https://itunes.apple.com/cn/app/l-ng-my-extensible-school-timetable/id1164016936?l=en&amp;mt=8</a></p>
 
-<h2 id="toc_5">开始秒杀朋友圈/QQ</h2>
+<h1 id="toc_1"></h1>
 
-<p><img src="media/14576725834921/IMG_4684.png" alt="IMG_4684"/><br/>
-<strong>注意：</strong><em>微信中不知道为什么好像只能添加到这个数,并且在测试中发现手机上的健康App的数据会短暂性消失,重启后才恢复正常,微信步数恢复正常而QQ健康的步数保持修改后步数</em><br/>
-![IMG_4909](media/14576725834921/IMG_4909.png</p>
+<h3 id="toc_2">名称由来</h3>
 
-<hr/>
+<p>在开发新版本的⎡我的课表⎦的<code>URL Scheme</code>时,原定的URL是<code>mytimetable://</code>,然而在Safari试验时发现已经有叫MyTimetable的网站了,而且功能很相似,不过人家是Web,为了日后不和别人冲突(说不定哪天别人就做iOS了呢),就决定给App换个名字.</p>
 
-<p>参考:<br/>
-1. <a href="https://www.raywenderlich.com/86336/ios-8-healthkit-swift-getting-started">HealthKit Tutorial with Swift: Getting Started</a><br/><br/>
-2. <a href="https://developer.apple.com/library/ios/documentation/HealthKit/Reference/HealthKit_Framework/index.html#//apple_ref/doc/uid/TP40014707">HealthKit Framework Reference</a>  </p>
+<p>⎡<strong>L!NG</strong>⎦这个名字最初是由<code>School Bell</code>这个词想到的,<code>School Bell -&gt; 铃 -&gt; ling -&gt; L!NG</code>,这个名称应该没人用,不过缺点就是不太好搜.</p>
 
 
     
@@ -245,16 +160,16 @@ healthKitStore.saveObject(sample, withCompletion: {
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="14583089838055.html" 
-          title="Previous Post: MATLAB 中 class 的使用">&laquo; MATLAB 中 class 的使用</a>
+          <a href="14810444537270.html" 
+          title="Previous Post: Introducing ⎡我的课表 - MyTimetable⎦ (已改名L!NG)">&laquo; Introducing ⎡我的课表 - MyTimetable⎦ (已改名L!NG)</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="14576719854493.html" 
-          title="Next Post: Hello World">Hello World &raquo;</a>
+          <a  href="14818718954340.html" 
+          title="Next Post: 几张守望先锋的手机壁纸">几张守望先锋的手机壁纸 &raquo;</a>
       
       </p>
         </div>
